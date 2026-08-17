@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nikah Invitation</title>
+<meta name="theme-color" content="#f2eee5">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --cream:#f3efe6;
+  --paper:#f8f5ee;
+  --ink:#160f0d;
+  --brown:#6d6258;
+  --gold:#a98b4d;
+  --red:#9c191c;
+  --dark:#190d0a;
+  --white:#fffdf8;
+  --border:#ddd5c7;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"DM Sans",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#111;color:var(--ink);font-family:var(--sans)}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.page{width:min(780px,100%);margin:auto;background:var(--cream);overflow:hidden}
+section{position:relative}
+.container{width:min(700px,calc(100% - 36px));margin:auto}
+.eyebrow{
+  color:var(--gold);font-size:10px;letter-spacing:.38em;
+  text-transform:uppercase;text-align:center
+}
+.title{
+  font-family:var(--serif);font-weight:500;letter-spacing:-.045em;
+  line-height:.9
+}
+.italic{font-style:italic;font-family:var(--serif)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* opening */
+#opening{
+  position:fixed;inset:0;background:#111;z-index:100;
+  display:flex;justify-content:center
+}
+.opening-inner{
+  width:min(780px,100%);min-height:100svh;background:var(--cream);
+  position:relative;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:30px
+}
+.opening-inner:before{
+  content:"";position:absolute;inset:16px;border:1px solid var(--gold)
+}
+.open-content{position:relative;z-index:2;width:100%;max-width:650px}
+.open-label{
+  display:inline-block;border:1px solid var(--gold);padding:12px 26px;
+  color:var(--gold);font-size:9px;letter-spacing:.38em
+}
+.monogram{
+  width:94px;height:94px;border:1px solid #cdbd98;border-radius:50%;
+  margin:42px auto 45px;display:grid;place-items:center;
+  color:var(--gold);font:30px var(--serif)
+}
+.open-names{
+  font:500 clamp(62px,13vw,98px)/.78 var(--serif);
+  letter-spacing:-.065em
+}
+.open-names span{display:block}
+.open-names .amp{font-size:.42em;color:var(--gold);line-height:1.3}
+.open-tag{margin-top:28px;font:italic 22px var(--serif);color:var(--brown)}
+.open-date{margin-top:34px;color:var(--gold);font-size:10px;letter-spacing:.4em}
+.open-button{
+  margin-top:36px;background:var(--red);border:0;color:#fff;
+  padding:18px 38px;letter-spacing:.3em;text-transform:uppercase;font-size:10px
+}
+
+/* hero */
+.hero{min-height:1080px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-photo{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to bottom,rgba(246,241,232,.58),rgba(246,241,232,.40) 45%,rgba(246,241,232,.78)),
+    url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=90") center/cover;
+}
+.hero-content{
+  position:relative;width:100%;text-align:center;padding:145px 24px 0
+}
+.hero-label{color:var(--red);font-size:10px;letter-spacing:.38em;text-transform:uppercase}
+.hero-names{
+  font:500 clamp(62px,13vw,100px)/.83 var(--serif);
+  letter-spacing:-.065em;margin-top:36px
+}
+.hero-names .amp{color:var(--gold);font-size:.55em}
+.hero-copy{
+  max-width:680px;margin:54px auto 0;font:italic 26px/1.48 var(--serif)
+}
+.hero-copy p+p{margin-top:24px}
+.hero-dot{
+  width:9px;height:9px;background:var(--gold);border-radius:50%;
+  margin:65px auto 0
+}
+.hero-strip{
+  margin:80px -24px 0;background:var(--red);color:#fff;
+  padding:31px 15px;font-size:11px;letter-spacing:.36em
+}
+
+/* countdown */
+.countdown{padding:82px 20px 96px;text-align:center;background:var(--cream)}
+.count-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);max-width:650px;margin:52px auto 0
+}
+.count-item{border-right:1px solid #d7cebe}
+.count-item:last-child{border-right:0}
+.count-num{font:500 clamp(64px,13vw,92px)/.8 var(--serif)}
+.count-label{margin-top:24px;font-size:9px;letter-spacing:.36em;color:var(--brown)}
+.count-caption{margin-top:58px}
+
+/* couple */
+.couple{padding:90px 20px 105px;background:var(--cream);text-align:center}
+.couple-names{
+  font:500 clamp(64px,13vw,100px)/.82 var(--serif);
+  letter-spacing:-.06em;margin-top:34px
+}
+.couple-names .amp{color:var(--gold);font-size:.54em}
+.couple-block{margin-top:100px}
+.role{color:var(--gold);font-size:11px;letter-spacing:.55em}
+.person-name{font:500 54px var(--serif);margin-top:30px}
+.parents{font:italic 27px/1.35 var(--serif);color:var(--brown);margin-top:50px}
+.address{font:italic 26px/1.35 var(--serif);color:var(--brown);margin-top:20px}
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:20px;margin:58px auto;
+  max-width:390px
+}
+.divider:before,.divider:after{content:"";height:1px;background:#d8cfbf;flex:1}
+.divider span{width:9px;height:9px;border-radius:50%;background:var(--gold)}
+
+/* occasion */
+.occasion{background:#f0ebe2;padding:95px 18px 100px}
+.occasion-title{text-align:center}
+.occasion-title h2{font-size:78px;margin:20px 0 0}
+.occasion-intro{font:italic 25px/1.4 var(--serif);color:var(--brown);text-align:center;max-width:620px;margin:62px auto 60px}
+.event-card{
+  background:#fff;border:1px solid #e4ddd0;border-radius:25px;
+  padding:32px 38px;box-shadow:0 12px 40px rgba(45,30,20,.08)
+}
+.event-top{display:flex;align-items:center;gap:18px;padding-bottom:28px;border-bottom:1px dashed #ded7ca}
+.event-number{
+  width:48px;height:48px;border-radius:50%;background:var(--red);color:#fff;
+  display:grid;place-items:center;font:18px var(--serif)
+}
+.event-name{font-size:10px;letter-spacing:.4em}
+.event-row{display:grid;grid-template-columns:54px 1fr;gap:20px;margin-top:28px}
+.event-icon{
+  width:48px;height:48px;border:1px solid #e1d8c8;border-radius:50%;
+  display:grid;place-items:center;color:var(--gold);font-size:22px
+}
+.small-label{font-size:9px;letter-spacing:.3em;color:#8a7d6d}
+.event-main{font:500 30px/1.1 var(--serif);margin-top:8px}
+.event-sub{font:italic 20px var(--serif);color:var(--brown);margin-top:7px}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}
+.action{
+  padding:17px;border:1px solid #ddd5c7;background:#fff;
+  text-decoration:none;text-align:center;color:var(--ink);
+  font-size:10px;letter-spacing:.28em;text-transform:uppercase
+}
+.action.primary{background:var(--red);color:#fff;border-color:var(--red)}
+
+/* quote */
+.quote{padding:95px 20px;background:var(--cream)}
+.quote-line{border-left:5px solid var(--gold);background:#f0ebe2;padding:52px 48px}
+.quote-text{font:italic 32px/1.5 var(--serif)}
+.quote-ref{margin-top:28px;color:var(--gold);letter-spacing:.4em;font-size:10px}
+
+/* gallery */
+.gallery{padding:95px 0 75px;background:var(--cream);text-align:center}
+.gallery-title{font-size:78px;margin-top:18px}
+.gallery-frame{
+  margin:60px 16px 0;border-radius:27px;overflow:hidden;
+  border:1px solid #ddd5c8;background:#ddd5c8
+}
+.gallery-frame img{width:100%;height:760px;display:block;object-fit:cover}
+.gallery-controls{
+  display:flex;align-items:center;justify-content:center;gap:28px;margin-top:25px
+}
+.arrow{
+  width:64px;height:64px;border:1px solid #ddd2bd;background:transparent;
+  border-radius:50%;color:var(--gold);font:34px var(--serif)
+}
+.dots{display:flex;gap:8px;align-items:center}
+.dot{width:9px;height:9px;border-radius:50%;background:#ddd3c1}
+.dot.active{width:38px;border-radius:8px;background:var(--gold)}
+
+/* RSVP */
+.rsvp{padding:70px 12px 100px;background:var(--cream)}
+.rsvp h2{text-align:center;font-size:75px;line-height:.9;margin:0}
+.rsvp-intro{text-align:center;font:italic 24px/1.4 var(--serif);color:var(--brown);margin:60px auto 40px;max-width:620px}
+.form-card{
+  background:#fff;border:1px solid #e4ddd0;border-radius:23px;
+  padding:32px 40px;box-shadow:0 12px 40px rgba(45,30,20,.08)
+}
+.form-title{text-align:center;font:500 43px var(--serif)}
+.form-sub{text-align:center;font:italic 20px var(--serif);color:var(--brown);margin-top:6px}
+.step{margin-top:30px}
+.step-label{font-size:10px;letter-spacing:.28em}
+.step-number{
+  display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;
+  background:var(--red);color:#fff;margin-right:10px;font-size:10px
+}
+.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.choice{
+  padding:17px 10px;border:1px solid #ddd5c7;background:#fff;
+  letter-spacing:.18em;text-transform:uppercase;font-size:9px
+}
+.choice.active{background:var(--red);color:#fff;border-color:var(--red)}
+.input{
+  width:100%;margin-top:14px;border:1px solid #ddd5c7;padding:18px;
+  background:#fff;outline:none;font:italic 21px var(--serif)
+}
+.submit{
+  width:100%;margin-top:24px;padding:18px;border:0;background:var(--red);
+  color:#fff;letter-spacing:.3em;text-transform:uppercase;font-size:10px
+}
+
+/* wishes */
+.wishes{padding:95px 20px;background:var(--cream);text-align:center}
+.wishes h2{font-size:78px;margin-top:18px}
+.wish-card{margin:58px auto 0;max-width:700px;background:#fff;border:1px solid #e3dccf;border-radius:22px;padding:38px}
+.wish-card textarea{min-height:130px;resize:vertical}
+.wish-list{max-width:650px;margin:35px auto 0;text-align:left}
+.wish{
+  background:#f6f1e8;border:1px solid #e1d8c8;border-radius:15px;
+  padding:18px 20px;margin-top:10px
+}
+.wish strong{font:italic 22px var(--serif)}
+.wish p{font:18px/1.45 var(--serif);color:var(--brown);margin-top:4px}
+
+/* footer */
+.footer{background:var(--dark);color:#fff;text-align:center;padding:82px 20px 55px}
+.footer-monogram{font:27px var(--serif);letter-spacing:.45em;color:#c7ae6d}
+.footer-copy{font:italic 29px var(--serif);margin-top:30px}
+.footer-names{font:italic 37px var(--serif);margin-top:8px}
+.footer-brand{font-size:8px;letter-spacing:.35em;color:#c9b57d;margin-top:55px;text-transform:uppercase}
+
+@media(max-width:560px){
+  .hero{min-height:1060px}
+  .hero-copy{font-size:23px}
+  .event-card,.form-card{padding:27px 20px}
+  .actions,.choices{grid-template-columns:1fr}
+  .quote-line{padding:38px 28px}
+  .quote-text{font-size:28px}
+  .parents,.address{font-size:23px}
+  .gallery-frame img{height:680px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="opening">
+  <div class="opening-inner">
+    <div class="open-content">
+      <div class="open-label">WEDDING INVITATION</div>
+      <div class="monogram"><span id="mi">N &amp; H</span></div>
+      <div class="eyebrow">— WITH JOYFUL HEARTS —</div>
+      <div class="open-names">
+        <span id="openGroom">Nihaal</span>
+        <span class="amp">&amp;</span>
+        <span id="openBride">Hajara</span>
+      </div>
+      <div class="open-tag">Two hearts, one beautiful forever.</div>
+      <div class="open-date" id="openDate">23 MAY 2026</div>
+      <button class="open-button" id="openButton">Open Invitation →</button>
+    </div>
+  </div>
+</div>
+
+<main class="page" id="page" style="display:none">
+
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-content">
+    <div class="hero-label">— WEDDING INVITATION —</div>
+    <div class="hero-names">
+      <span id="heroGroom">Nihaal</span> <span class="amp">&amp;</span> <span id="heroBride">Hajara</span>
+    </div>
+    <div class="hero-copy">
+      <p>In the name of Allah, the Most Gracious, the Most Merciful.</p>
+      <p>Together with their families, <span id="heroCouple">Nihaal &amp; Hajara</span> joyfully invite you to celebrate their Nikah.</p>
+      <p>We warmly invite you to join us in this blessed occasion.</p>
+    </div>
+    <div class="hero-dot"></div>
+    <div class="hero-strip" id="heroStrip">23 MAY 2026 · ALOOR · ALHAMDULILLAH</div>
+  </div>
+</section>
+
+<section class="countdown">
+  <div class="count-grid">
+    <div class="count-item"><div class="count-num" id="days">23</div><div class="count-label">DAY</div></div>
+    <div class="count-item"><div class="count-num" id="months">05</div><div class="count-label">MONTH</div></div>
+    <div class="count-item"><div class="count-num" id="years">26</div><div class="count-label">YEAR</div></div>
+  </div>
+  <div class="eyebrow count-caption">— COUNTING DOWN —</div>
+</section>
+
+<section class="couple">
+  <div class="eyebrow reveal">— THE COUPLE —</div>
+  <div class="couple-names reveal"><span id="coupleGroom">Nihaal</span> <span class="amp">&amp;</span><br><span id="coupleBride">Hajara</span></div>
+
+  <div class="couple-block reveal">
+    <div class="role">G R O O M</div>
+    <div class="person-name" id="groomName">Nihaal</div>
+    <div class="parents">S/o Abdul Gafoor KA &amp; Sameera PV</div>
+    <div class="address">Kalamsekharaath House, Pattithara</div>
+  </div>
+
+  <div class="divider"><span></span></div>
+
+  <div class="couple-block reveal">
+    <div class="role">B R I D E</div>
+    <div class="person-name" id="brideName">Hajara</div>
+    <div class="parents">D/o Davood Poolakkunnath &amp; Shareeja Davood</div>
+    <div class="address">Poolakkunnath House, Kumaranellur</div>
+  </div>
+</section>
+
+<section class="occasion">
+  <div class="occasion-title">
+    <div class="eyebrow">— THE OCCASIONS —</div>
+    <h2 class="title">Join Us</h2>
+  </div>
+  <div class="occasion-intro italic">Join us to witness this blessed union and share in our joy.</div>
+
+  <div class="event-card reveal">
+    <div class="event-top"><div class="event-number">01</div><div class="event-name">W E D D I N G</div></div>
+    <div class="event-row">
+      <div class="event-icon">□</div>
+      <div><div class="small-label">DATE &amp; TIME</div><div class="event-main" id="eventDate">Saturday, 23 May 2026</div><div class="event-sub">11:00 AM onwards</div></div>
+    </div>
+    <div class="event-row">
+      <div class="event-icon">⌖</div>
+      <div><div class="small-label">VENUE</div><div class="event-main">MKM Convention Center (Sriyas Palace)</div><div class="event-sub">Thrithala Road, Aloor</div></div>
+    </div>
+    <div class="actions">
+      <a class="action primary" id="mapLink" target="_blank">⌖ Directions</a>
+      <button class="action" id="calendarButton">□ Calendar</button>
+    </div>
+  </div>
+</section>
+
+<section class="quote">
+  <div class="container">
+    <div class="eyebrow reveal">— HIS WORD —</div>
+    <div class="quote-line reveal">
+      <div class="quote-text">"And of His signs is that He created for you from yourselves mates that you may find tranquility in them; and He placed between you affection and mercy."</div>
+      <div class="quote-ref">SURAH AR-RUM 30 : 21</div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="eyebrow reveal">— OUR MOMENTS —</div>
+  <h2 class="title gallery-title reveal">The Gallery</h2>
+  <div class="gallery-frame reveal"><img id="galleryImage" alt="Wedding moment"></div>
+  <div class="gallery-controls">
+    <button class="arrow" id="prev">‹</button>
+    <div class="dots" id="dots"></div>
+    <button class="arrow" id="next">›</button>
+  </div>
+</section>
+
+<section class="rsvp">
+  <div class="container">
+    <h2 class="title">Will You Be Joining<br>Us?</h2>
+    <div class="rsvp-intro italic">Kindly let us know by <span class="gold">20 May 2026.</span> We'd love to have you with us.</div>
+
+    <div class="form-card reveal">
+      <div class="form-title">RSVP</div>
+      <div class="form-sub">Just a few quick details 🌸</div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-number">1</span>W I L L  Y O U  B E  A T T E N D I N G ?</div>
+        <div class="choices">
+          <button class="choice active" data-attend="yes">YES, I'LL JOIN</button>
+          <button class="choice" data-attend="no">CAN'T MAKE IT</button>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-number">2</span>Y O U R  N A M E</div>
+        <input class="input" id="rsvpName" placeholder="e.g., Ahmed Rashid">
+      </div>
+
+      <div class="step">
+        <div class="step-label"><span class="step-number">3</span>W H I C H  E V E N T  W I L L  Y O U  A T T E N D ?</div>
+        <div class="wish" style="margin-top:15px;background:#fff">
+          <strong>Wedding</strong>
+          <p id="rsvpEvent">Sat, 23 May · 11:00 AM · MKM Convention Center, Aloor</p>
+        </div>
+      </div>
+
+      <button class="submit" id="rsvpSubmit">✓ &nbsp; C O N F I R M &nbsp; R S V P</button>
+      <p id="rsvpStatus" class="italic" style="text-align:center;color:var(--gold);margin-top:12px"></p>
+    </div>
+  </div>
+</section>
+
+<section class="wishes">
+  <div class="eyebrow reveal">— SEND YOUR LOVE —</div>
+  <h2 class="title reveal">Wishes Wall</h2>
+
+  <div class="wish-card reveal">
+    <input class="input" id="wishName" placeholder="Your name">
+    <textarea class="input" id="wishMessage" placeholder="Write a blessing or warm wish for Nihaal &amp; Hajara..."></textarea>
+    <button class="submit" id="wishSubmit">SEND WISH ✦</button>
+    <p id="wishStatus" class="italic" style="text-align:center;color:var(--gold);margin-top:12px"></p>
+  </div>
+
+  <div class="wish-list" id="wishList"></div>
+  <div class="italic" id="emptyWish" style="font-size:23px;color:var(--brown);margin-top:45px">No wishes yet — be the first!</div>
+</section>
+
+<footer class="footer">
+  <div class="footer-monogram" id="footerInitials">N · H</div>
+  <div class="footer-copy">With love &amp; gratitude —</div>
+  <div class="footer-names" id="footerNames">Nihaal &amp; Hajara</div>
+  <div class="footer-brand">The Vow Co. · Digital Wedding Invitations</div>
+</footer>
+
+</main>
+
+<script>
+/*
+  TEMPLATE DATA
+  This is intentionally kept in one place so you can later connect it to
+  your existing ?id= backend without rebuilding the visual design.
+*/
+const DEMO = {
+  groom:"Nihaal",
+  bride:"Hajara",
+  date:"2026-05-23",
+  time:"11:00",
+  city:"Aloor",
+  venue:"MKM Convention Center (Sriyas Palace)",
+  address:"Thrithala Road, Aloor",
+  groomParents:"S/o Abdul Gafoor KA & Sameera PV",
+  groomAddress:"Kalamsekharaath House, Pattithara",
+  brideParents:"D/o Davood Poolakkunnath & Shareeja Davood",
+  brideAddress:"Poolakkunnath House, Kumaranellur",
+  mapQuery:"MKM Convention Center Aloor",
+  gallery:[
+    "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=90",
+    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=90",
+    "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=90",
+    "https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=90"
+  ]
+};
+
+let DATA={...DEMO};
+let galleryIndex=0;
+let attending="yes";
+
+function formatDate(dateString){
+  const d=new Date(dateString+"T00:00:00");
+  return {
+    long:d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"}),
+    short:d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}),
+    upper:d.toLocaleDateString("en-GB",{day:"2-digit",month:"long",year:"numeric"}).toUpperCase()
+  };
+}
+
+function applyData(){
+  const f=formatDate(DATA.date);
+  const couple=DATA.groom+" & "+DATA.bride;
+
+  document.querySelectorAll("#openGroom,#heroGroom,#coupleGroom,#groomName").forEach(e=>e.textContent=DATA.groom);
+  document.querySelectorAll("#openBride,#heroBride,#coupleBride,#brideName").forEach(e=>e.textContent=DATA.bride);
+
+  document.getElementById("mi").textContent=DATA.groom[0]+" & "+DATA.bride[0];
+  document.getElementById("heroCouple").textContent=couple;
+  document.getElementById("openDate").textContent=f.upper;
+  document.getElementById("heroStrip").textContent=f.upper+" · "+DATA.city.toUpperCase()+" · ALHAMDULILLAH";
+  document.getElementById("eventDate").textContent=f.long;
+  document.getElementById("rsvpEvent").textContent=f.short+" · "+DATA.time+" AM · "+DATA.venue+", "+DATA.city;
+  document.getElementById("footerInitials").textContent=DATA.groom[0]+" · "+DATA.bride[0];
+  document.getElementById("footerNames").textContent=couple;
+
+  document.querySelector(".groom-block");
+  const blocks=document.querySelectorAll(".couple-block");
+  if(blocks.length>=2){
+    blocks[0].querySelector(".parents").textContent=DATA.groomParents;
+    blocks[0].querySelector(".address").textContent=DATA.groomAddress;
+    blocks[1].querySelector(".parents").textContent=DATA.brideParents;
+    blocks[1].querySelector(".address").textContent=DATA.brideAddress;
+  }
+  document.getElementById("mapLink").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(DATA.mapQuery);
+  showGallery(0);
+}
+
+function showGallery(i){
+  galleryIndex=(i+DATA.gallery.length)%DATA.gallery.length;
+  document.getElementById("galleryImage").src=DATA.gallery[galleryIndex];
+  document.getElementById("dots").innerHTML=DATA.gallery.map((_,n)=>
+    '<span class="dot '+(n===galleryIndex?'active':'')+'"></span>'
+  ).join("");
+}
+document.getElementById("prev").onclick=()=>showGallery(galleryIndex-1);
+document.getElementById("next").onclick=()=>showGallery(galleryIndex+1);
+
+document.querySelectorAll("[data-attend]").forEach(btn=>{
+  btn.onclick=()=>{
+    attending=btn.dataset.attend;
+    document.querySelectorAll("[data-attend]").forEach(b=>b.classList.toggle("active",b===btn));
+  };
+});
+
+document.getElementById("rsvpSubmit").onclick=()=>{
+  const name=document.getElementById("rsvpName").value.trim();
+  document.getElementById("rsvpStatus").textContent=name
+    ? "Thank you, "+name+". Your RSVP has been recorded for this preview."
+    : "Please enter your name.";
+};
+
+document.getElementById("wishSubmit").onclick=()=>{
+  const name=document.getElementById("wishName").value.trim();
+  const msg=document.getElementById("wishMessage").value.trim();
+  if(!name || !msg){
+    document.getElementById("wishStatus").textContent="Please enter your name and wish.";
+    return;
+  }
+  const card=document.createElement("div");
+  card.className="wish";
+  card.innerHTML="<strong></strong><p></p>";
+  card.querySelector("strong").textContent=name;
+  card.querySelector("p").textContent=msg;
+  document.getElementById("wishList").prepend(card);
+  document.getElementById("emptyWish").style.display="none";
+  document.getElementById("wishName").value="";
+  document.getElementById("wishMessage").value="";
+  document.getElementById("wishStatus").textContent="Your wish has been added.";
+};
+
+document.getElementById("calendarButton").onclick=()=>{
+  const d=DATA.date.replaceAll("-","");
+  const title=encodeURIComponent(DATA.groom+" & "+DATA.bride+" — Nikah");
+  const location=encodeURIComponent(DATA.venue+", "+DATA.address);
+  window.open(
+    "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+title+
+    "&dates="+d+"T053000/"+d+"T083000&location="+location,
+    "_blank"
+  );
+};
+
+document.getElementById("openButton").onclick=()=>{
+  const opening=document.getElementById("opening");
+  opening.style.transition="opacity .65s ease";
+  opening.style.opacity="0";
+  setTimeout(()=>{
+    opening.remove();
+    document.getElementById("page").style.display="block";
+    activateReveals();
+  },650);
+};
+
+function activateReveals(){
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        io.unobserve(entry.target);
+      }
+    });
+  },{threshold:.12});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+}
+
+/* Optional dynamic ID hook:
+   ?id=ayesha-farhan is captured here.
+   Replace this section with the same Supabase/API call used by your
+   existing wedding-invites-lovat project.
+*/
+const invitationId=new URLSearchParams(location.search).get("id");
+window.INVITATION_ID=invitationId || "demo";
+
+applyData();
+</script>
+</body>
+</html>
